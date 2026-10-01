@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Flux Report — TES Locações</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f3f5f9;color:#172033;font-family:Inter,Arial,sans-serif}.app{min-height:100vh;display:flex}
+.sidebar{width:242px;background:#171225;color:#bdb6ca;position:fixed;left:0;top:0;bottom:0;padding:24px 16px}
+.logo{font-size:26px;font-weight:900;color:#fff;padding:0 10px 26px;letter-spacing:-2px}.logo span{font-size:13px;color:#9d83ff;letter-spacing:1px;margin-left:3px}
+.client{border-top:1px solid #302941;border-bottom:1px solid #302941;padding:16px 5px;display:flex;gap:10px;align-items:center}.avatar{width:34px;height:34px;background:#20b968;color:#fff;border-radius:50%;display:grid;place-items:center;font-weight:800}.client strong,.client small{display:block}.client strong{font-size:10px;color:#fff}.client small{font-size:8px;color:#91899f;margin-top:4px}
+nav{padding-top:18px}nav a{display:flex;gap:11px;align-items:center;text-decoration:none;color:#aaa2b9;font-size:11px;padding:12px 10px;border-radius:8px;margin:3px 0}nav a span{width:18px;text-align:center}nav a.active{background:#6537e9;color:#fff}
+.side-footer{position:absolute;bottom:24px;left:25px}.side-footer b{display:block;color:#9c7fff;font-size:18px}.side-footer small{font-size:8px;color:#777087}
+.main{margin-left:242px;width:calc(100% - 242px)}.topbar{height:72px;background:#fff;border-bottom:1px solid #e4e8ef;display:flex;align-items:center;padding:0 30px;gap:20px}.topbar>div:first-child{min-width:260px}.topbar strong{display:block;font-size:13px}.topbar small{display:block;font-size:9px;color:#8792a5;margin-top:4px}
+.period{margin:auto;display:flex;align-items:center;gap:10px;border:1px solid #e0e4eb;border-radius:11px;padding:8px 13px;color:#5b677a}.period strong,.period b,.period small{display:block}.period strong{font-size:9px}.period b{font-size:10px;margin-top:2px}.period small{font-size:7px;letter-spacing:.04em}
+.topbar button{border:1px solid #dfe3ea;background:#fff;border-radius:9px;padding:10px 14px;font-size:10px;font-weight:700;color:#465165}
+.content{max-width:1450px;margin:auto;padding:30px}.intro{display:flex;justify-content:space-between;align-items:end;margin-bottom:19px}.intro label,.card label,.bottom-banner label{font-size:8px;font-weight:900;letter-spacing:.12em;color:#6537e9}.intro h1{font-size:25px;letter-spacing:-.04em;margin:7px 0 4px}.intro p{font-size:10px;color:#7e899b;margin:0}.updated{background:#fff;border:1px solid #e3e7ee;border-radius:9px;padding:9px 12px;font-size:9px;color:#657185}.updated i{display:inline-block;width:6px;height:6px;background:#1bb36b;border-radius:50%;margin-right:6px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:12px}.kpi{background:#fff;border:1px solid #e5e8ef;border-radius:13px;padding:14px;min-height:112px;box-shadow:0 3px 16px rgba(35,43,63,.025)}.kpi-title{color:#7b8799;font-size:9px}.kpi-title span{display:inline-grid;place-items:center;width:24px;height:24px;background:#f0ebff;color:#6537e9;border-radius:7px;margin-right:7px;font-weight:800}.kpi strong{display:block;font-size:19px;margin-top:13px;letter-spacing:-.03em}.kpi small{font-size:8px;color:#9aa2af}.tagline{display:block;margin-top:8px!important;color:#7d8797!important}
+.columns{display:grid;grid-template-columns:1.45fr 1fr;gap:12px;margin-bottom:12px}.card{background:#fff;border:1px solid #e5e8ef;border-radius:15px;padding:20px;box-shadow:0 3px 18px rgba(35,43,63,.025)}.card-header{display:flex;justify-content:space-between;align-items:flex-start}.card h2{font-size:15px;margin:5px 0 18px;letter-spacing:-.02em}.tag{background:#f5f6f9;padding:6px 8px;border-radius:6px;color:#687387;font-size:9px}
+.funnel{display:flex;flex-direction:column;align-items:center}.funnel-step{height:43px;background:linear-gradient(90deg,#e9e2ff,#6537e9);clip-path:polygon(3% 0,97% 0,100% 100%,0 100%);display:flex;align-items:center;justify-content:space-between;color:#fff;padding:0 18px;min-width:34%}.w100{width:100%}.w88{width:88%}.w76{width:76%}.w62{width:62%}.w48{width:48%}.w34{width:34%}.funnel-step span{font-size:9px}.funnel-step b{font-size:11px}.funnel em{font-style:normal;color:#aab1be;height:12px;line-height:12px}
+.highlight{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:12px;padding:18px 0;border-bottom:1px solid #edf0f4}.highlight span{font-size:10px;color:#7d889a}.highlight strong{font-size:27px}.highlight em{font-style:normal;font-size:8px;color:#6537e9;background:#f0ebff;padding:4px 6px;border-radius:5px;font-weight:800}
+.metric{display:flex;justify-content:space-between;border-bottom:1px solid #edf0f4;padding:11px 0;font-size:9px}.metric span{color:#7d889a}.metric b{font-size:10px}.note{background:#f7f4ff;border-radius:9px;padding:11px;margin-top:13px}.note b{font-size:9px;color:#6537e9}.note p{font-size:9px;line-height:1.5;color:#707b8e;margin:5px 0}
+.chart{height:190px;position:relative;margin-top:5px}.chart svg{width:100%;height:190px}.days{display:flex;justify-content:space-between;color:#a1a8b5;font-size:8px}.purple{color:#6537e9;font-size:12px}
+.bottom-banner{display:flex;gap:15px;align-items:flex-start;background:linear-gradient(100deg,#fff,#faf8ff);border:1px solid #e5e8ef;border-radius:15px;padding:20px;margin-top:4px}.star{width:40px;height:40px;border-radius:11px;background:#eee8ff;color:#6537e9;display:grid;place-items:center;font-size:18px}.bottom-banner h2{font-size:15px;margin:5px 0}.bottom-banner p{font-size:9px;color:#707b8e;margin:0;line-height:1.5}
+footer{display:flex;gap:8px;align-items:center;margin-top:24px;color:#9aa2af;font-size:8px}footer strong{color:#6537e9;font-size:13px}footer span:last-child{margin-left:auto}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(3,1fr)}.columns{grid-template-columns:1fr}}@media(max-width:700px){.sidebar{display:none}.main{margin-left:0;width:100%}.topbar{height:auto;flex-wrap:wrap;padding:13px}.topbar>div:first-child{width:100%}.period{width:100%;margin:0}.topbar button{display:none}.content{padding:18px 12px}.intro{display:block}.updated{display:inline-block;margin-top:12px}.kpis{grid-template-columns:1fr 1fr}.columns{grid-template-columns:1fr}.funnel-step{padding:0 11px}.bottom-banner{padding:15px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="logo">F<span>LUX</span></div>
+  <div class="client"><div class="avatar">T</div><div><strong>TES Locações</strong><small>Dashboard de performance</small></div></div>
+  <nav>
+    <a href="#" class="active"><span>⌂</span> Visão geral</a>
+    <a href="#"><span>◉</span> Meta Ads</a>
+    <a href="#"><span>G</span> Google Ads</a>
+    <a href="#"><span>◎</span> Funil</a>
+    <a href="#"><span>▣</span> Resultados</a>
+  </nav>
+  <div class="side-footer"><b>FLUX</b><small>Tráfego • Automação • Performance</small></div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+  <div><strong>TES Locações</strong><small>Dashboard de TES Locações</small></div>
+  <div class="period"><span>▣</span><div><strong>Período analisado</strong><b>01 set — 30 set 2026</b><small>RELATÓRIO MENSAL</small></div><span>⌄</span></div>
+  <button>↗ Compartilhar</button>
+</header>
+
+<div class="content">
+<section class="intro">
+  <div><label>META ADS</label><h1>Relatório de Performance</h1><p>Resultados das campanhas da TES Locações no período de 01/09 a 30/09.</p></div>
+  <div class="updated"><i></i> Período encerrado</div>
+</section>
+
+<section class="kpis">
+  <div class="kpi"><div class="kpi-title"><span>R$</span> Valor investido</div><strong>R$ 707,40</strong><small class="tagline">Investimento no período</small></div>
+  <div class="kpi"><div class="kpi-title"><span>◉</span> Alcance total</div><strong>5.676</strong><small class="tagline">Pessoas alcançadas</small></div>
+  <div class="kpi"><div class="kpi-title"><span>▥</span> Impressões totais</div><strong>14.181</strong><small class="tagline">Exibições dos anúncios</small></div>
+  <div class="kpi"><div class="kpi-title"><span>↗</span> Total de cliques</div><strong>240</strong><small class="tagline">Interações com anúncios</small></div>
+  <div class="kpi"><div class="kpi-title"><span>◌</span> Conversas</div><strong>36</strong><small class="tagline">Oportunidades geradas</small></div>
+  <div class="kpi"><div class="kpi-title"><span>⌁</span> CTR</div><strong>1,69%</strong><small class="tagline">Taxa de cliques</small></div>
+  <div class="kpi"><div class="kpi-title"><span>$</span> CPC médio</div><strong>R$ 2,95</strong><small class="tagline">Custo por clique</small></div>
+  <div class="kpi"><div class="kpi-title"><span>◫</span> CPM médio</div><strong>R$ 49,88</strong><small class="tagline">Custo por mil impressões</small></div>
+  <div class="kpi"><div class="kpi-title"><span>↗</span> Cliques no link</div><strong>120</strong><small class="tagline">Acessos ao destino</small></div>
+  <div class="kpi"><div class="kpi-title"><span>◎</span> CPL</div><strong>R$ 19,65</strong><small class="tagline">Custo por conversa</small></div>
+</section>
+
+<section class="columns">
+<div class="card">
+<div class="card-header"><div><label>FUNIL</label><h2>Jornada da campanha</h2></div><span class="tag">Meta Ads</span></div>
+<div class="funnel">
+<div class="funnel-step w100"><span>Valor investido</span><b>R$ 707,40</b></div><em>↓</em>
+<div class="funnel-step w88"><span>Impressões totais</span><b>14.181</b></div><em>↓</em>
+<div class="funnel-step w76"><span>Alcance total</span><b>5.676</b></div><em>↓</em>
+<div class="funnel-step w62"><span>Total de cliques</span><b>240</b></div><em>↓</em>
+<div class="funnel-step w48"><span>Cliques no link</span><b>120</b></div><em>↓</em>
+<div class="funnel-step w34"><span>Conversas</span><b>36</b></div>
+</div>
+</div>
+
+<div class="card">
+<div class="card-header"><div><label>RESUMO</label><h2>Principais indicadores</h2></div></div>
+<div class="highlight"><span>Conversas geradas</span><strong>36</strong><em>15% dos cliques</em></div>
+<div class="metric"><span>Custo por conversa</span><b>R$ 19,65</b></div>
+<div class="metric"><span>Cliques no link</span><b>120</b></div>
+<div class="metric"><span>CTR</span><b>1,69%</b></div>
+<div class="metric"><span>CPC médio</span><b>R$ 2,95</b></div>
+<div class="metric"><span>CPM</span><b>R$ 49,88</b></div>
+<div class="note"><b>Leitura da Flux</b><p>O período gerou 36 conversas com investimento de R$ 707,40. O custo médio por conversa ficou em R$ 19,65. O próximo ciclo deve buscar ampliar o volume de oportunidades mantendo controle sobre o custo.</p></div>
+</div>
+</section>
+
+<section class="columns">
+<div class="card">
+<div class="card-header"><div><label>ENTREGA</label><h2>Distribuição da campanha</h2></div><strong class="purple">14.181 impressões</strong></div>
+<div class="chart">
+<svg viewBox="0 0 650 190" preserveAspectRatio="none">
+<defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6d3df5" stop-opacity=".22"/><stop offset="100%" stop-color="#6d3df5" stop-opacity="0"/></linearGradient></defs>
+<line x1="20" x2="630" y1="40" y2="40" stroke="#edf0f5"/><line x1="20" x2="630" y1="85" y2="85" stroke="#edf0f5"/><line x1="20" x2="630" y1="130" y2="130" stroke="#edf0f5"/><line x1="20" x2="630" y1="175" y2="175" stroke="#edf0f5"/>
+<polygon points="20,150 70,140 120,125 170,132 220,108 270,120 320,96 370,105 420,84 470,94 520,70 570,82 630,60 630,175 20,175" fill="url(#area)"/>
+<polyline points="20,150 70,140 120,125 170,132 220,108 270,120 320,96 370,105 420,84 470,94 520,70 570,82 630,60" fill="none" stroke="#6d3df5" stroke-width="3"/>
+</svg>
+</div>
+<div class="days"><span>01/09</span><span>05/09</span><span>10/09</span><span>15/09</span><span>20/09</span><span>25/09</span><span>30/09</span></div>
+</div>
+
+<div class="card">
+<div class="card-header"><div><label>CONVERSÃO</label><h2>Eficiência do funil</h2></div></div>
+<div class="metric"><span>Cliques → Conversas</span><b>15,00%</b></div>
+<div class="metric"><span>Cliques no link → Conversas</span><b>30,00%</b></div>
+<div class="metric"><span>Investimento por conversa</span><b>R$ 19,65</b></div>
+<div class="metric"><span>Conversas por R$ 100 investidos</span><b>5,09</b></div>
+<div class="note"><b>Ponto de atenção</b><p>O acompanhamento comercial das 36 conversas é essencial para medir quantas oportunidades realmente avançaram para orçamento, locação e faturamento.</p></div>
+</div>
+</section>
+
+<section class="bottom-banner">
+<div class="star">✦</div>
+<div><label>ANÁLISE DA FLUX</label><h2>Visão do período</h2><p>As campanhas alcançaram 5.676 pessoas e geraram 36 conversas a partir de R$ 707,40 investidos. Para o próximo ciclo, a análise deve cruzar os resultados do tráfego com a qualidade das conversas e o fechamento comercial.</p></div>
+</section>
+
+<footer><strong>FLUX</strong><span>Tráfego Pago • Automação • Performance</span><span>Relatório mensal • TES Locações</span></footer>
+</div>
+</main>
+</div>
+</body>
+</html>
